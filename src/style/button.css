@@ -1,0 +1,7 @@
+.button-standart {
+  display: block;
+  cursor: pointer;
+  padding: 0.5em, 1.5em;
+  margin: 1em auto;
+  border-radius: 5px;
+}

@@ -1,0 +1,21 @@
+.uppercase-text {
+  text-transform: uppercase;
+}
+
+body {
+  font-family: "Macho", sans-serif;
+  font-style: italic;
+  color: #4e2020;
+  font-size: 1.3rem;
+  letter-spacing: 1.1px;
+  line-height: 1.5em;
+}
+
+.header-text {
+  font-size: 2rem;
+  letter-spacing: 1.5px;
+}
+
+.footer-small {
+  font-size: 0.8rem;
+}

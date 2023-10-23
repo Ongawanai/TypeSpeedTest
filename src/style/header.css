@@ -1,0 +1,19 @@
+.header {
+  border-bottom: 3px solid #d1adad;
+  box-shadow: 3px 5px 5px 0px #3f3737;
+  flex-shrink: 0;
+  background-color: #e9c9c9;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 1em 2em;
+}
+
+.header-img {
+  width: 10%;
+  height: 10%;
+}
