@@ -19,3 +19,11 @@ body {
 .footer-small {
   font-size: 0.8rem;
 }
+
+.current-char {
+  border: 1px solid #3d8f56c9;
+}
+
+.wrong-char {
+  border: 1px solid #ff0000;
+}
