@@ -1,8 +1,9 @@
 .header {
   border-bottom: 3px solid #d1adad;
-  box-shadow: 3px 5px 5px 0px #3f3737;
+  box-shadow: 5px 10px 5px -5px #3f3737;
   flex-shrink: 0;
-  background-color: #e9c9c9;
+  background-color: #f3e9e9;
+  margin-bottom: 15px;
 }
 
 .header-container {
@@ -14,6 +15,11 @@
 }
 
 .header-img {
-  width: 10%;
-  height: 10%;
+  max-height: 50px;
+}
+
+@media (min-width: 500px) {
+  .header-img {
+    max-height: 100px;
+  }
 }

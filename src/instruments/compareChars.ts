@@ -4,12 +4,12 @@ type CompareCharsType = (
   charsArray: TextType[],
   currentIndex: number,
   pressedKey: string,
-  errorIndex: number | boolean
-) => [resultArr: TextType[], currentIndex: number, errors: number | boolean];
+  errorCount: number
+) => [resultArr: TextType[], currentIndex: number, errors: number];
 
-export const compareChars: CompareCharsType = (charsArray, currentIndex, pressedKey, errorIndex) => {
+export const compareChars: CompareCharsType = (charsArray, currentIndex, pressedKey, errorCount) => {
   let newCurrentIndex = currentIndex;
-  let newErrorIndex = errorIndex;
+  let newErrorCount = errorCount;
   const result = charsArray.map((letter: TextType, index: number) => {
     if (index === currentIndex && letter.char === pressedKey) {
       newCurrentIndex += 1;
@@ -18,7 +18,7 @@ export const compareChars: CompareCharsType = (charsArray, currentIndex, pressed
         class: "right-char",
       };
     } else if (index === currentIndex && letter.char !== pressedKey) {
-      newErrorIndex = errorIndex;
+      newErrorCount += 1;
       return {
         ...letter,
         class: "wrong-char",
@@ -27,5 +27,5 @@ export const compareChars: CompareCharsType = (charsArray, currentIndex, pressed
     return letter;
   });
 
-  return [result, newCurrentIndex, newErrorIndex];
+  return [result, newCurrentIndex, newErrorCount];
 };

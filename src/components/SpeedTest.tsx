@@ -1,14 +1,17 @@
 import { FunctionComponent, useEffect } from "react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { TextType, addNumOfPressings, setCurrIndex, setNumOfErrors, setText, setWrongIndex } from "../slices/textSlice";
+import { TextType, addNumOfPressings, setCurrIndex, setNumOfErrors, setText } from "../slices/textSlice";
 import { compareChars } from "../instruments/compareChars";
+import { startTimer } from "../slices/timerSlice";
+import { setFinish } from "../slices/testSlice";
+import Stats from "./Stats";
 
 const Test: FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const numOfSentences = useAppSelector((state) => state.testSlice.numOfSentenses);
   const currIndex = useAppSelector((state) => state.textSlice.currentCharIndex);
-  const currWrongIndex = useAppSelector((state) => state.textSlice.currentWrongIndex);
+  const errorsCount = useAppSelector((state) => state.textSlice.numOfErrors);
 
   useEffect(() => {
     axios
@@ -24,9 +27,6 @@ const Test: FunctionComponent = () => {
           .slice(3, -4)
           .split("")
           .map((char: string, index: number) => {
-            if (index === currWrongIndex) {
-              return { char, class: "wrong-char" };
-            }
             return index === currIndex ? { char, class: "current-char" } : { char, class: "" };
           });
         dispatch(setText(text));
@@ -34,25 +34,34 @@ const Test: FunctionComponent = () => {
   }, []);
 
   const testText = useAppSelector((state) => state.textSlice.text);
+  const pressingCount = useAppSelector((state) => state.textSlice.numOfPressings);
 
   useEffect(() => {
     const newText = testText.map((letter: TextType, index: number) => {
-      if (index === currWrongIndex) {
-        return { ...letter, class: "wrong-char" };
-      }
       return index === currIndex ? { ...letter, class: "current-char" } : { ...letter, class: "" };
     });
     dispatch(setText(newText));
   }, [dispatch, currIndex]);
 
   useEffect(() => {
+    if (pressingCount === 1 && testText.length > 0) {
+      dispatch(startTimer(true));
+    }
+
     if (currIndex < testText.length) {
       const keyPressHandler = (event: KeyboardEvent) => {
-        const [newText, newIndex, newWrongIndex] = compareChars(testText, currIndex, event.key, currWrongIndex);
+        const [newText, newIndex, newErrorsCount] = compareChars(testText, currIndex, event.key, errorsCount);
         dispatch(setCurrIndex(newIndex));
-        dispatch(setWrongIndex(newWrongIndex));
+        if (errorsCount !== newErrorsCount) {
+          dispatch(setNumOfErrors(newErrorsCount));
+        }
         dispatch(setText(newText));
         dispatch(addNumOfPressings());
+
+        if (newIndex === testText.length) {
+          dispatch(startTimer(false));
+          dispatch(setFinish(true));
+        }
       };
 
       document.addEventListener("keypress", keyPressHandler);
@@ -64,10 +73,17 @@ const Test: FunctionComponent = () => {
   }, [dispatch, testText]);
 
   return (
-    <div>
-      {testText.map((letter) => {
-        return <span className={letter.class}>{letter.char}</span>;
-      })}
+    <div className='test-container'>
+      <div>
+        {testText.map((letter, index) => {
+          return (
+            <span className={letter.class} key={index}>
+              {letter.char}
+            </span>
+          );
+        })}
+      </div>
+      <Stats />
     </div>
   );
 };
