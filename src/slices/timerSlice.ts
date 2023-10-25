@@ -22,6 +22,7 @@ const timerSlice = createSlice({
     },
     resetSeconds(state) {
       state.seconds = 0;
+      state.isTimerStarted = false;
     },
   },
 });

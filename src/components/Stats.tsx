@@ -41,7 +41,6 @@ const Stats: FunctionComponent = () => {
         <p className='stat-header uppercase-text stat-title'>аккуратность</p>
         <p className='uppercase-text'>{accuracy} %</p>
       </div>
-      <Button btnText='Начать заново' onClick={() => dispatch(resetSeconds())}></Button>
     </div>
   );
 };

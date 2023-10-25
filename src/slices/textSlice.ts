@@ -35,9 +35,14 @@ const textSlice = createSlice({
     addNumOfPressings(state) {
       state.numOfPressings += 1;
     },
+    resetText(state) {
+      state.currentCharIndex = 0;
+      state.numOfPressings = 0;
+      state.numOfErrors = 0;
+    },
   },
 });
 
-export const { setText, setCurrIndex, addNumOfPressings, setNumOfErrors } = textSlice.actions;
+export const { setText, setCurrIndex, addNumOfPressings, setNumOfErrors, resetText } = textSlice.actions;
 
 export default textSlice.reducer;

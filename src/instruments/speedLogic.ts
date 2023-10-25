@@ -9,7 +9,7 @@ export const countAccuracy = (mistakes: number, pressingCount: number): string =
 export const countSpeed = (correctLetters: number, time: number): string => {
   if (time) {
     const minutes = time / 60;
-    return (correctLetters / minutes).toFixed(2);
+    return (correctLetters / minutes).toFixed(1);
   }
 
   return "0.00";

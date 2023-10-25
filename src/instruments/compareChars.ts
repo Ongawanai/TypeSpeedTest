@@ -13,10 +13,7 @@ export const compareChars: CompareCharsType = (charsArray, currentIndex, pressed
   const result = charsArray.map((letter: TextType, index: number) => {
     if (index === currentIndex && letter.char === pressedKey) {
       newCurrentIndex += 1;
-      return {
-        ...letter,
-        class: "right-char",
-      };
+      return letter;
     } else if (index === currentIndex && letter.char !== pressedKey) {
       newErrorCount += 1;
       return {

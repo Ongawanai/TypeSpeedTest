@@ -27,3 +27,7 @@ body {
 .wrong-char {
   border: 1px solid #ff0000;
 }
+
+.right-char {
+  color: #5bdd8281;
+}

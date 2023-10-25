@@ -1,17 +1,20 @@
 import { FunctionComponent, useEffect } from "react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { TextType, addNumOfPressings, setCurrIndex, setNumOfErrors, setText } from "../slices/textSlice";
+import { TextType, addNumOfPressings, resetText, setCurrIndex, setNumOfErrors, setText } from "../slices/textSlice";
 import { compareChars } from "../instruments/compareChars";
-import { startTimer } from "../slices/timerSlice";
-import { setFinish } from "../slices/testSlice";
+import { resetSeconds, startTimer } from "../slices/timerSlice";
+import { resetTest, setFinish } from "../slices/testSlice";
 import Stats from "./Stats";
+import ModalWindow from "./ModalWindow";
+import Button from "./Button";
 
 const Test: FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const numOfSentences = useAppSelector((state) => state.testSlice.numOfSentenses);
   const currIndex = useAppSelector((state) => state.textSlice.currentCharIndex);
   const errorsCount = useAppSelector((state) => state.textSlice.numOfErrors);
+  const isFinished = useAppSelector((state) => state.testSlice.isFinished);
 
   useEffect(() => {
     axios
@@ -36,9 +39,24 @@ const Test: FunctionComponent = () => {
   const testText = useAppSelector((state) => state.textSlice.text);
   const pressingCount = useAppSelector((state) => state.textSlice.numOfPressings);
 
+  const restart = () => {
+    dispatch(resetSeconds());
+    dispatch(resetTest());
+    dispatch(resetText());
+
+    if (isFinished) {
+      dispatch(setFinish(false));
+    }
+  };
+
   useEffect(() => {
     const newText = testText.map((letter: TextType, index: number) => {
-      return index === currIndex ? { ...letter, class: "current-char" } : { ...letter, class: "" };
+      if (index === currIndex) {
+        return { ...letter, class: "current-char" };
+      } else if (index < currIndex) {
+        return { ...letter, class: "right-char" };
+      }
+      return { ...letter, class: "" };
     });
     dispatch(setText(newText));
   }, [dispatch, currIndex]);
@@ -83,7 +101,16 @@ const Test: FunctionComponent = () => {
           );
         })}
       </div>
-      <Stats />
+      <div>
+        <Stats />
+        <Button btnText='Начать заново' onClick={restart}></Button>
+      </div>
+      {isFinished && (
+        <ModalWindow title='Тест закончен!'>
+          <Stats />
+          <Button btnText='Начать заново' onClick={restart}></Button>
+        </ModalWindow>
+      )}
     </div>
   );
 };
