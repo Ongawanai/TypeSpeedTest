@@ -4,6 +4,57 @@
 
 .test-container {
   display: flex;
-  flex-direction: row;
-  gap: 3em;
+  flex-direction: column-reverse;
+  gap: 2em;
+  margin-bottom: 2em;
+}
+@media (min-width: 700px) {
+  .test-container {
+    flex-direction: row;
+    gap: 3em;
+  }
+}
+@media (min-width: 1280px) {
+  .test-container {
+    gap: 5em;
+  }
+}
+
+.text-container {
+  background-color: aliceblue;
+  padding: 1em;
+  border-radius: 7px;
+  box-shadow: 0px 00px 10px 5px #3f373746;
+}
+
+@media (min-width: 700px) {
+  .text-container {
+    width: 100%;
+    min-height: 100%;
+    padding: 2em;
+    display: flex;
+    place-items: center;
+    flex-wrap: nowrap;
+  }
+}
+
+.stats-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  text-align: center;
+  background-color: aliceblue;
+  padding: 1em;
+  border-radius: 7px;
+  box-shadow: 0px 00px 10px 5px #3f373746;
+}
+
+@media (min-width: 700px) {
+  .stats-container {
+    padding: 2em;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
 }

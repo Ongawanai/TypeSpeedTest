@@ -14,6 +14,7 @@ body {
 .header-text {
   font-size: 2rem;
   letter-spacing: 1.5px;
+  padding: 0em 1em;
 }
 
 .footer-small {
@@ -22,12 +23,14 @@ body {
 
 .current-char {
   border: 1px solid #3d8f56c9;
+  border-radius: 3px;
 }
 
 .wrong-char {
   border: 1px solid #ff0000;
+  border-radius: 3px;
 }
 
 .right-char {
-  color: #5bdd8281;
+  color: #5bdd82a4;
 }

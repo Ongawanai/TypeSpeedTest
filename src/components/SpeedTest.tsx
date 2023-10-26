@@ -39,16 +39,6 @@ const Test: FunctionComponent = () => {
   const testText = useAppSelector((state) => state.textSlice.text);
   const pressingCount = useAppSelector((state) => state.textSlice.numOfPressings);
 
-  const restart = () => {
-    dispatch(resetSeconds());
-    dispatch(resetTest());
-    dispatch(resetText());
-
-    if (isFinished) {
-      dispatch(setFinish(false));
-    }
-  };
-
   useEffect(() => {
     const newText = testText.map((letter: TextType, index: number) => {
       if (index === currIndex) {
@@ -92,23 +82,21 @@ const Test: FunctionComponent = () => {
 
   return (
     <div className='test-container'>
-      <div>
-        {testText.map((letter, index) => {
-          return (
-            <span className={letter.class} key={index}>
-              {letter.char}
-            </span>
-          );
-        })}
+      <div className='text-container'>
+        <div>
+          {testText.map((letter, index) => {
+            return (
+              <span className={letter.class} key={index}>
+                {letter.char}
+              </span>
+            );
+          })}
+        </div>
       </div>
-      <div>
-        <Stats />
-        <Button btnText='Начать заново' onClick={restart}></Button>
-      </div>
+      <Stats />
       {isFinished && (
         <ModalWindow title='Тест закончен!'>
           <Stats />
-          <Button btnText='Начать заново' onClick={restart}></Button>
         </ModalWindow>
       )}
     </div>
