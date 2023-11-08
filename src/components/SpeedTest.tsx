@@ -3,11 +3,10 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { TextType, addNumOfPressings, resetText, setCurrIndex, setNumOfErrors, setText } from "../slices/textSlice";
 import { compareChars } from "../instruments/compareChars";
-import { resetSeconds, startTimer } from "../slices/timerSlice";
-import { resetTest, setFinish } from "../slices/testSlice";
+import { startTimer } from "../slices/timerSlice";
+import { setFinish } from "../slices/testSlice";
 import Stats from "./Stats";
 import ModalWindow from "./ModalWindow";
-import Button from "./Button";
 
 const Test: FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +29,10 @@ const Test: FunctionComponent = () => {
           .slice(3, -4)
           .split("")
           .map((char: string, index: number) => {
+            if (char === "—") {
+              const newChar = "-";
+              return index === currIndex ? { newChar, class: "current-char" } : { newChar, class: "" };
+            }
             return index === currIndex ? { char, class: "current-char" } : { char, class: "" };
           });
         dispatch(setText(text));

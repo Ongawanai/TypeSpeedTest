@@ -1,8 +1,6 @@
-import { FunctionComponent, ChangeEvent, ComponentPropsWithoutRef } from "react";
-import { useAppDispatch } from "../hooks/hooks";
+import { FunctionComponent } from "react";
 
 import "../style/modal.css";
-import { setStart } from "../slices/testSlice";
 
 type ModalTypeProps = {
   children: JSX.Element | JSX.Element[];

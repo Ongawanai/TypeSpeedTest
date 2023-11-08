@@ -19,8 +19,6 @@ const App: FunctionComponent = () => {
     { value: 1, name: "1" },
     { value: 2, name: "2" },
     { value: 3, name: "3" },
-    { value: 4, name: "4" },
-    { value: 5, name: "5" },
   ];
   const changeSentences = (value: number) => dispatch(setNumOfSentenses(value));
   const testStart = () => dispatch(setStart(true));

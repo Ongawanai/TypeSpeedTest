@@ -9,7 +9,7 @@ type TestState = {
 const initialState: TestState = {
   isStarted: false,
   isFinished: false,
-  numOfSentenses: 4,
+  numOfSentenses: 3,
 };
 
 const testSlice = createSlice({
@@ -28,7 +28,7 @@ const testSlice = createSlice({
     resetTest(state) {
       state.isStarted = false;
       state.isFinished = false;
-      state.numOfSentenses = 4;
+      state.numOfSentenses = 3;
     },
   },
 });
